@@ -1,4 +1,4 @@
-import sys
+import sys, os
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 
@@ -12,10 +12,12 @@ from PyQt5.QtSql import QSqlDatabase, QSqlQuery
 
 def create_connection():
     """
+    
     创建并打开数据库连接
     """
     db = QSqlDatabase.addDatabase('QSQLITE')
-    db.setDatabaseName('advanced_db.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'advanced_db.db')
+    db.setDatabaseName(db_path)
 
     if not db.open():
         print(f"无法连接到数据库: {db.lastError().text()}")
