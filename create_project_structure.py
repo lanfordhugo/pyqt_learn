@@ -25,30 +25,3 @@ def create_directory_structure(base_path):
         '15_advanced': ['custom_widget.py', 'model_view_example.py', 'graphics_view.py', 'animation.py'],
         '16_projects': ['calculator', 'text_editor', 'image_viewer', 'todo_app']
     }
-
-    def create_structure(current_path, structure):
-        for key, value in structure.items():
-            path = os.path.join(current_path, key)
-            if not os.path.exists(path):
-                os.makedirs(path)
-                print(f"创建目录：{path}")
-            else:
-                print(f"目录已存在：{path}")
-            
-            if isinstance(value, list):
-                for file in value:
-                    file_path = os.path.join(path, file)
-                    if not os.path.exists(file_path):
-                        open(file_path, 'w').close()
-                        print(f"创建文件：{file_path}")
-                    else:
-                        print(f"文件已存在：{file_path}")
-            elif isinstance(value, dict):
-                create_structure(path, value)
-
-    create_structure(base_path, structure)
-
-if __name__ == "__main__":
-    base_path = "pyqt5_examples"
-    create_directory_structure(base_path)
-    print("项目结构创建完成。")

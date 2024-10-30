@@ -685,6 +685,163 @@ form_layout.setRowWrapPolicy(QFormLayout.WrapLongRows)      # 设置行换行策
 
 这些高级控件为创建复杂和功能丰富的用户界面提供了强大的工具。通过合理使用这些控件,可以构建出直观、高效且易于使用的应用程序界面。在实际开发中,这些控件通常会结合使用,以满足各种复杂的界面需求。
 
+## 5. 基础控件与高级控件
+
+### 5.1 基础控件
+
+1. **QLabel**
+   - 用于显示文本或图像，常用于界面中的静态文本展示。
+   - 关键属性：
+     - `text`：设置显示的文本。
+     - `alignment`：设置文本对齐方式。
+     - `pixmap`：用于显示图像。
+     - `wordWrap`：控制文本换行。
+   - 示例用法：
+  
+     ```python
+     label = QLabel("Hello, PyQt5!")
+     label.setAlignment(Qt.AlignCenter)
+     label.setWordWrap(True)
+     ```
+
+2. **QPushButton**
+   - 用于创建按钮，用户可以通过点击按钮触发事件。
+   - 关键概念：
+     - 信号与槽：`clicked`信号用于处理按钮点击事件。
+     - 可以设置图标：使用`setIcon`方法。
+   - 示例用法：
+     ```python
+     button = QPushButton("Click Me")
+     button.setIcon(QIcon("icon.png"))
+     button.clicked.connect(lambda: print("Button clicked!"))
+     ```
+
+3. **QLineEdit**
+   - 单行文本输入框，用户可以输入和编辑文本。
+   - 关键功能：
+     - 输入验证：可以设置输入掩码或验证器。
+     - 占位符文本：通过`setPlaceholderText`设置。
+     - 支持密码输入模式：使用`setEchoMode(QLineEdit.Password)`。
+   - 示例用法：
+     ```python
+     line_edit = QLineEdit()
+     line_edit.setPlaceholderText("Enter your name")
+     line_edit.setEchoMode(QLineEdit.Password)
+     ```
+
+4. **QTextEdit**
+   - 多行文本输入框，支持富文本编辑。
+   - 关键功能：
+     - 支持文本格式化，如加粗、斜体。
+     - 可以插入图片、表格等。
+     - 支持撤销和重做操作。
+   - 示例用法：
+     ```python
+     text_edit = QTextEdit()
+     text_edit.setHtml("<b>Bold Text</b>")
+     text_edit.undo()
+     ```
+
+5. **QCheckBox**
+   - 复选框，用户可以选择或取消选择。
+   - 关键概念：
+     - 状态变化：`stateChanged`信号用于处理状态变化。
+     - 可以设置三态复选框：使用`setTristate`。
+   - 示例用法：
+     ```python
+     checkbox = QCheckBox("I agree")
+     checkbox.setTristate(True)
+     checkbox.stateChanged.connect(lambda state: print("Checked" if state else "Unchecked"))
+     ```
+
+6. **QRadioButton**
+   - 单选按钮，通常用于一组选项中选择一个。
+   - 关键概念：
+     - 组内互斥：同一组中的单选按钮互斥。
+     - 通常与QButtonGroup结合使用以管理一组单选按钮。
+   - 示例用法：
+     ```python
+     radio_button = QRadioButton("Option 1")
+     radio_button.toggled.connect(lambda checked: print("Selected" if checked else "Deselected"))
+     ```
+
+7. **QComboBox**
+   - 下拉列表，用户可以从多个选项中选择一个。
+   - 关键功能：
+     - 可以动态添加、删除选项。
+     - 获取当前选项：通过`currentText`或`currentIndex`。
+     - 支持可编辑模式：用户可以输入自定义选项。
+   - 示例用法：
+     ```python
+     combo_box = QComboBox()
+     combo_box.addItems(["Option 1", "Option 2", "Option 3"])
+     combo_box.setEditable(True)
+     combo_box.currentIndexChanged.connect(lambda index: print(f"Selected: {combo_box.itemText(index)}"))
+     ```
+
+### 5.2 高级控件
+
+1. **QListWidget**
+   - 列表控件，用户可以选择一个或多个列表项。
+   - 关键功能：
+     - 支持单选和多选模式。
+     - 可以动态添加、删除列表项。
+     - 支持拖放操作。
+   - 示例用法：
+     ```python
+     list_widget = QListWidget()
+     list_widget.addItems(["Item 1", "Item 2", "Item 3"])
+     list_widget.setSelectionMode(QAbstractItemView.MultiSelection)
+     list_widget.itemClicked.connect(lambda item: print(f"Clicked: {item.text()}"))
+     ```
+
+2. **QTableWidget**
+   - 表格控件，用于显示和编辑二维数据。
+   - 关键功能：
+     - 支持单元格编辑、选择模式。
+     - 可以设置行列标题。
+     - 支持排序和过滤。
+   - 示例用法：
+     ```python
+     table_widget = QTableWidget(3, 2)
+     table_widget.setHorizontalHeaderLabels(["Column 1", "Column 2"])
+     table_widget.setItem(0, 0, QTableWidgetItem("Cell 1"))
+     table_widget.setSortingEnabled(True)
+     ```
+
+3. **QTreeWidget**
+   - 树形控件，适合显示分层数据。
+   - 关键功能：
+     - 支持节点的添加、删除。
+     - 可以处理节点选择事件。
+     - 支持展开和折叠节点。
+   - 示例用法：
+     ```python
+     tree_widget = QTreeWidget()
+     tree_widget.setHeaderLabels(["Name", "Description"])
+     root = QTreeWidgetItem(tree_widget, ["Root", "Root node"])
+     child = QTreeWidgetItem(root, ["Child", "Child node"])
+     tree_widget.expandAll()
+     ```
+
+4. **QTabWidget**
+   - 选项卡控件，允许在多个页面之间切换。
+   - 关键功能：
+     - 可以动态添加、删除选项卡。
+     - 处理选项卡切换事件。
+     - 可以设置选项卡的位置：顶部、底部、左侧、右侧。
+   - 示例用法：
+     ```python
+     tab_widget = QTabWidget()
+     tab_widget.addTab(QWidget(), "Tab 1")
+     tab_widget.addTab(QWidget(), "Tab 2")
+     tab_widget.setTabPosition(QTabWidget.West)
+     tab_widget.currentChanged.connect(lambda index: print(f"Current tab: {index}"))
+     ```
+
+以上是对基础控件和高级控件的详细补充，涵盖了每个控件的更多功能和使用场景。
+
+
 ## 6. 信号与槽机制
 
 ### 6.1 基本概念
@@ -899,7 +1056,7 @@ form_layout.setRowWrapPolicy(QFormLayout.WrapLongRows)      # 设置行换行策
 
 这个详细的补充涵盖了信号与槽机制的各个方面,包括基本概念、使用方法、高级特性、工作原理、最佳实践和实际应用示例。这应该能为学习者提供一个全面而深入的理解,帮助他们在PyQt5开发中有效地使用信号与槽机制。
 
-# 7. 对话框
+## 7. 对话框
 
 PyQt5 提供了多种对话框类型，用于与用户进行交互。这些对话框不仅提高了应用程序的用户友好性，还为开发者提供了标准化的用户输入收集方法。以下是主要的对话框类型及其详细用法：
 
@@ -1060,445 +1217,7 @@ if result == QDialog.Accepted:
 5. **对话框的样式设置**：
   
    - 使用样式表（QSS）自定义对话框外观：
-  
-     ```python
-     dialog.setStyleSheet("background-color: #f0f0f0; color: #333;")
-     ```
-
-   - 可以通过 `setWindowFlags()` 方法自定义窗口标志，如去除标题栏：
-
-     ```python
-     dialog.setWindowFlags(Qt.Dialog | Qt.FramelessWindowHint)
-     ```
-
-6. **对话框中的事件处理**：
-
-   - 可以重写 `closeEvent()` 方法来自定义关闭行为
-   - 使用 `keyPressEvent()` 方法处理键盘事件，如 Esc 键关闭对话框
-
-7. **对话框的大小和位置**：
-8.  
-   - 使用 `setGeometry()` 或 `move()` 方法设置对话框的位置
-   - 使用 `setFixedSize()` 设置固定大小的对话框
-
-## 8. 事件处理
-
-### 8.1 事件的概念
-
-在 PyQt5 中，事件是用户与应用程序交互的主要方式。当用户执行某些操作（如点击鼠标或按下键盘）时，PyQt5 会生成相应的事件。这些事件可以被应用程序捕获和处理，从而响应用户的操作。
-
-主要特点：
-
-- 事件驱动：PyQt5 应用程序是事件驱动的，主要通过响应各种事件来工作。
-- 事件循环：应用程序运行时会进入一个事件循环，不断检查是否有新的事件发生。
-- 事件处理器：通过重写特定的方法来处理相应的事件。
-
-### 8.2 鼠标事件
-
-PyQt5 提供了多种鼠标事件，允许应用程序响应各种鼠标操作。
-
-主要的鼠标事件：
-
-1. `mousePressEvent`: 鼠标按钮被按下时触发
-2. `mouseReleaseEvent`: 鼠标按钮被释放时触发
-3. `mouseDoubleClickEvent`: 鼠标双击时触发
-4. `mouseMoveEvent`: 鼠标移动时触发
-5. `enterEvent`: 鼠标进入窗口时触发
-6. `leaveEvent`: 鼠标离开窗口时触发
-7. `wheelEvent`: 鼠标滚轮滚动时触发
-
-示例代码：
-
-```python
-def mousePressEvent(self, event):
-    if event.button() == Qt.LeftButton:
-        print("鼠标左键被按下")
-    elif event.button() == Qt.RightButton:
-        print("鼠标右键被按下")
-
-def mouseReleaseEvent(self, event):
-    if event.button() == Qt.LeftButton:
-        print("鼠标左键被释放")
-    elif event.button() == Qt.RightButton:
-        print("鼠标右键被释放")
-
-def mouseDoubleClickEvent(self, event):
-    if event.button() == Qt.LeftButton:
-        print("鼠标左键被双击")
-    elif event.button() == Qt.RightButton:
-        print("鼠标右键被双击")
-
-def mouseMoveEvent(self, event):
-    print(f"鼠标移动到 ({event.x()}, {event.y()})")
-
-def enterEvent(self, event):
-    print("鼠标进入窗口")
-
-def leaveEvent(self, event):
-    print("鼠标离开窗口")
-
-def wheelEvent(self, event):
-    print(f"鼠标滚轮滚动: {event.angleDelta()}")
-
-```
-
-### 8.3 键盘事件
-
-PyQt5 提供了多种键盘事件，允许应用程序响应各种键盘操作。
-
-主要的键盘事件：
-
-1. `keyPressEvent`: 键盘按键被按下时触发
-2. `keyReleaseEvent`: 键盘按键被释放时触发
-3. `focusInEvent`: 窗口获得焦点时触发
-4. `focusOutEvent`: 窗口失去焦点时触发
-5. `shortcutEvent`: 快捷键被触发时触发
-
-示例代码：
-
-```python
-def keyPressEvent(self, event):
-    if event.key() == Qt.Key_A:
-        print("A键被按下")
-    elif event.key() == Qt.Key_B:
-        print("B键被按下")
-
-def keyReleaseEvent(self, event):
-    if event.key() == Qt.Key_A:
-        print("A键被释放")
-    elif event.key() == Qt.Key_B:
-        print("B键被释放")
-
-def focusInEvent(self, event):
-    print("窗口获得焦点")
-
-def focusOutEvent(self, event):
-    print("窗口失去焦点")
-
-def shortcutEvent(self, event):
-    if event.matches(QKeySequence("Ctrl+A")):
-        print("Ctrl+A快捷键被触发")
-
-```
-
-### 8.4 拖放事件
-
-PyQt5 提供了拖放事件，允许应用程序响应拖放操作。
-
-主要的拖放事件：
-
-1. `dragEnterEvent`: 拖放操作进入窗口时触发
-2. `dragMoveEvent`: 拖放操作在窗口内移动时触发
-3. `dragLeaveEvent`: 拖放操作离开窗口时触发
-4. `dropEvent`: 拖放操作在窗口内释放时触发
-
-示例代码：
-
-```python
-def dragEnterEvent(self, event):
-    print("拖放操作进入窗口")
-
-def dragMoveEvent(self, event):
-    print("拖放操作在窗口内移动")
-
-def dragLeaveEvent(self, event):
-    print("拖放操作离开窗口")
-
-def dropEvent(self, event):
-    print("拖放操作在窗口内释放")
-
-```
-
-## 9. 绘图与图形
-
-### 9.1 QPainter 类
-
-### 9.2 绘制基本图形
-
-### 9.3 使用画笔和画刷
-
-### 9.4 绘制文本
-
-## 10. 多线程
-
-### 10.1 QThread 类
-
-### 10.2 创建和管理线程
-
-### 10.3 线程间通信
-
-## 11. 数据库操作
-
-### 11.1 连接数据库
-
-### 11.2 执行 SQL 查询
-
-### 11.3 使用模型视图架构
-
-## 12. 国际化
-
-### 12.1 使用 QTranslator
-
-### 12.2 创建翻译文件
-
-## 13. 样式和主题
-
-### 13.1 使用 QSS (Qt Style Sheets)
-
-### 13.2 自定义控件外观
-
-## 14. 打包和发布
-
-### 14.1 使用 PyInstaller 打包应用
-
-### 14.2 创建安装程序
-
-## 15. 高级主题
-
-### 15.1 自定义控件
-
-### 15.2 Model/View 编程
-
-### 15.3 图形视图框架
-
-### 15.4 动画框架
-
-## 16. 实战项目
-
-### 16.1 简单计算器
-
-### 16.2 文本编辑器
-
-### 16.3 图片浏览器
-
-### 16.4 待办事项应用
-
-### 6.7 实际应用示例
-
-- GUI事件处理
-
-  ```python
-  class Calculator(QWidget):
-      def __init__(self):
-          super().__init__()
-          self.button = QPushButton("Calculate", self)
-          self.button.clicked.connect(self.perform_calculation)
-      
-      def perform_calculation(self):
-          # 执行计算逻辑
-          pass
-  ```
-
-- 自定义组件间通信
-
-  ```python
-  class Sender(QObject):
-      value_changed = pyqtSignal(int)
-  
-  class Receiver(QObject):
-      @pyqtSlot(int)
-      def handle_value_change(self, value):
-          print(f"Value changed to: {value}")
-  
-  sender = Sender()
-  receiver = Receiver()
-  sender.value_changed.connect(receiver.handle_value_change)
-  sender.value_changed.emit(42)
-  ```
-
-- 线程间通信
-
-  ```python
-  class Worker(QObject):
-      finished = pyqtSignal()
-      progress = pyqtSignal(int)
-  
-      def run(self):
-          for i in range(100):
-              self.progress.emit(i)
-          self.finished.emit()
-  
-  class MainWindow(QMainWindow):
-      def __init__(self):
-          super().__init__()
-          self.thread = QThread()
-          self.worker = Worker()
-          self.worker.moveToThread(self.thread)
-          self.thread.started.connect(self.worker.run)
-          self.worker.finished.connect(self.thread.quit)
-          self.worker.progress.connect(self.update_progress)
-  
-      def start_work(self):
-          self.thread.start()
-  
-      def update_progress(self, value):
-          print(f"Progress: {value}%")
-  ```
-
-这个详细的补充涵盖了信号与槽机制的各个方面,包括基本概念、使用方法、高级特性、工作原理、最佳实践和实际应用示例。这应该能为学习者提供一个全面而深入的理解,帮助他们在PyQt5开发中有效地使用信号与槽机制。
-
-# 7. 对话框
-
-PyQt5 提供了多种对话框类型，用于与用户进行交互。这些对话框不仅提高了应用程序的用户友好性，还为开发者提供了标准化的用户输入收集方法。以下是主要的对话框类型及其详细用法：
-
-### 7.1 消息框 (QMessageBox)
-
-QMessageBox 用于显示信息、警告或错误消息给用户。它是与用户进行简单交互的最常用方式之一。
-
-QMessageBox 提供了以下几种标准消息框类型：
-
-- Information（信息）: `QMessageBox.information()`
-- Warning（警告）: `QMessageBox.warning()`
-- Critical（错误）: `QMessageBox.critical()`
-- Question（问题）: `QMessageBox.question()`
-
-示例代码：
-
-```python
-def showInfoMessage(self):
-    QMessageBox.information(self, "信息", "这是一个信息消息框", QMessageBox.Yes)
-
-def showWarningMessage(self):
-    QMessageBox.warning(self, "警告", "这是一个警告消息框", QMessageBox.Ok)
-
-def showCriticalMessage(self):
-    QMessageBox.critical(self, "错误", "这是一个错误消息框", QMessageBox.Ok)
-```
-
-### 7.2 输入对话框 (QInputDialog)
-
-QInputDialog 用于获取用户的各种类型的输入，如文本、数字或列表选择。
-
-示例代码：
-
-```python
-def showInputDialog(self):
-    text, ok = QInputDialog.getText(
-        self, "输入对话框", "请输入您的名字：", QLineEdit.Normal, ""
-    )
-    if ok and text:
-        QMessageBox.information(
-            self, "输入结果", f"您输入的名字是：{text}", QMessageBox.Ok
-        )
-```
-
-### 7.3 文件对话框 (QFileDialog)
-
-QFileDialog 用于让用户选择文件或目录，是处理文件操作时的标准对话框。
-
-示例代码：
-
-```python
-def showFileDialog(self):
-    fname, _ = QFileDialog.getOpenFileName(
-        self, "选择文件", "", "所有文件 (*);;文本文件 (*.txt)"
-    )
-    if fname:
-        QMessageBox.information(
-            self, "文件选择", f"您选择的文件是：{fname}", QMessageBox.Ok
-        )
-```
-
-### 7.4 颜色对话框 (QColorDialog)
-
-QColorDialog 用于让用户选择颜色，常用于自定义界面颜色或绘图应用。
-
-示例代码：
-
-```python
-def showColorDialog(self):
-    color = QColorDialog.getColor()
-    if color.isValid():
-        self.setStyleSheet(f"background-color: {color.name()};")
-```
-
-### 7.5 字体对话框 (QFontDialog)
-
-QFontDialog 用于让用户选择字体，常用于文本编辑器或自定义文本显示。
-
-示例代码：
-
-```python
-def showFontDialog(self):
-    font, ok = QFontDialog.getFont()
-    if ok:
-        self.setFont(font)
-```
-
-除了 `getFont()` 方法，QFontDialog 还提供了以下接口来获取字体信息：
-
-- `QFontDialog.currentFont()`: 获取当前选择的字体
-- `QFontDialog.selectedFont()`: 获取用户最终选择的字体
-- `QFontDialog.font()`: 获取对话框当前显示的字体
-
-### 7.6 自定义对话框
-
-自定义对话框允许开发者创建特定需求的对话框，提供更大的灵活性。
-
-#### 7.6.1 创建自定义对话框
-
-通过继承 QDialog 类来创建自定义对话框：
-
-```python
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QPushButton
-
-class CustomDialog(QDialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle("自定义对话框")
-        
-        layout = QVBoxLayout()
-        layout.addWidget(QLabel("这是一个自定义对话框"))
-        
-        button = QPushButton("确定")
-        button.clicked.connect(self.accept)
-        layout.addWidget(button)
-        
-        self.setLayout(layout)
-```
-
-#### 7.6.2 使用自定义对话框
-
-```python
-dialog = CustomDialog(self)
-result = dialog.exec_()
-if result == QDialog.Accepted:
-    print("对话框被接受")
-```
-
-#### 7.6.3 高级技巧
-
-- 使用 `setModal(True)` 设置对话框为模态
-- 重写 `accept()` 和 `reject()` 方法来自定义确认和取消行为
-- 使用 `setResult()` 设置自定义返回值
-
-### 7.7 常用知识点补充
-
-1. **对话框的模态性**：
-   - 模态对话框：阻塞程序其他部分的交互，直到对话框关闭。
-     - 使用 `exec_()` 方法显示
-   - 非模态对话框：允许用户与程序的其他部分交互。
-     - 使用 `show()` 方法显示
-   - 应用级模态：`dialog.setWindowModality(Qt.ApplicationModal)`
-   - 窗口级模态：`dialog.setWindowModality(Qt.WindowModal)`
-
-2. **对话框的返回值：**
-   - 大多数对话框方法返回一个元组，包含用户的选择和一个布尔值表示是否确认。
-   - 可以使用 `setResult()` 方法设置自定义返回值
-   - `QDialog.Accepted` 和 `QDialog.Rejected` 是常用的返回值
-
-3. **设置对话框的父窗口**：
-   - 通过在创建对话框时指定父窗口，可以使对话框居中显示在父窗口上。
-   - 例如：`dialog = QFileDialog(self)`
-
-4. **对话框的生命周期管理**：
-   - 使用 `setAttribute(Qt.WA_DeleteOnClose)` 确保对话框在关闭时被删除
-   - 或者使用 `dialog.finished.connect(dialog.deleteLater)`
-
-5. **对话框的样式设置**：
-  
-   - 使用样式表（QSS）自定义对话框外观：
-  
+    
      ```python
      dialog.setStyleSheet("background-color: #f0f0f0; color: #333;")
      ```
@@ -1670,6 +1389,7 @@ PyQt5 中的主要拖放事件包括：
 QPainter是Qt中所有绘图操作的核心类，提供了在各种设备（QWidget、QPixmap、QImage等）上进行绘制的能力。
 
 #### 9.1.1 基本使用
+
 ```python
 def paintEvent(self, event):
     painter = QPainter()
@@ -1688,6 +1408,7 @@ def paintEvent(self, event):
 ```
 
 #### 9.1.2 状态保存和恢复
+
   ```python
 def paintEvent(self, event):
     painter = QPainter(self)
@@ -1695,9 +1416,10 @@ def paintEvent(self, event):
     painter.save()  # 保存当前状态
     # 修改画笔、变换等
     painter.restore()  # 恢复之前的状态
-```
+  ```
 
 #### 9.1.3 坐标变换
+
   ```python
 def paintEvent(self, event):
     painter = QPainter(self)
@@ -1705,11 +1427,12 @@ def paintEvent(self, event):
     painter.translate(100, 100)  # 移动原点
     painter.rotate(45)           # 旋转45度
     painter.scale(2, 2)         # 放大2倍
-```
+  ```
 
 ### 9.2 绘制基本图形
 
 #### 9.2.1 直线和点
+
   ```python
 # 绘制单个点
 painter.drawPoint(x, y)
@@ -1718,9 +1441,10 @@ painter.drawPoint(x, y)
 painter.drawLine(x1, y1, x2, y2)
 # 或使用QLine/QLineF
 painter.drawLine(QLineF(x1, y1, x2, y2))
-```
+  ```
 
 #### 9.2.2 矩形和椭圆
+
 ```python
 # 绘制矩形
 painter.drawRect(x, y, width, height)
@@ -1734,6 +1458,7 @@ painter.drawEllipse(x, y, diameter, diameter)
 ```
 
 #### 9.2.3 多边形和路径
+
 ```python
 # 绘制多边形
 points = [QPoint(x1,y1), QPoint(x2,y2), QPoint(x3,y3)]
@@ -1750,6 +1475,7 @@ painter.drawPath(path)
 ### 9.3 使用画笔和画刷
 
 #### 9.3.1 画笔(QPen)设置
+
 ```python
 pen = QPen()
 pen.setColor(Qt.red)                    # 设置颜色
@@ -1761,6 +1487,7 @@ painter.setPen(pen)
 ```
 
 #### 9.3.2 画刷(QBrush)设置
+
 ```python
 brush = QBrush()
 brush.setColor(Qt.blue)                 # 设置颜色
@@ -1782,6 +1509,7 @@ painter.setBrush(brush)
 ### 9.4 绘制文本
 
 #### 9.4.1 基本文本绘制
+
 ```python
 # 简单文本绘制
 painter.drawText(x, y, "Hello World")
@@ -1792,6 +1520,7 @@ painter.drawText(rect, Qt.AlignCenter, "Centered Text")
 ```
 
 #### 9.4.2 字体设置
+
 ```python
 font = QFont()
 font.setFamily("Arial")                 # 字体族
@@ -1802,6 +1531,7 @@ painter.setFont(font)
 ```
 
 #### 9.4.3 文本度量
+
 ```python
 metrics = QFontMetrics(font)
 pixelsWide = metrics.width("Hello")     # 文本宽度
@@ -1810,6 +1540,7 @@ boundingRect = metrics.boundingRect("Hello")  # 文本边界矩形
 ```
 
 #### 9.4.4 文本对齐
+
 ```python
 rect = QRectF(x, y, width, height)
 flags = Qt.AlignLeft | Qt.AlignVCenter  # 水平左对齐，垂直居中
@@ -1817,6 +1548,7 @@ painter.drawText(rect, flags, "Aligned Text")
 ```
 
 注意事项：
+
 1. 所有绘图操作必须在paintEvent中进行
 2. 使用update()触发重绘，避免直接调用paintEvent
 3. 复杂绘图操作考虑使用缓存机制
@@ -1824,12 +1556,14 @@ painter.drawText(rect, flags, "Aligned Text")
 5. 合理使用save()和restore()管理画家状态
 
 ### 9.5 坐标系统与变换
+
 - 逻辑坐标vs设备坐标
 - 坐标变换：translate()、rotate()、scale()
 - 视口和窗口：setViewport()、setWindow()
 - 变换矩阵：QTransform
 
 ### 9.6 渲染控制
+
 - 渲染提示：setRenderHint()
   - 抗锯齿
   - 文本抗锯齿
@@ -1839,12 +1573,14 @@ painter.drawText(rect, flags, "Aligned Text")
 - 裁剪：setClipRect()、setClipPath()
 
 ### 9.7 高级绘图特性
+
 - 渐变：QLinearGradient、QRadialGradient、QConicalGradient
 - 图案填充：QBrush with QPixmap
 - 透明度效果：setOpacity()
 - 阴影效果：使用QPainterPath
 
 ### 9.8 图形项与场景
+
 - QGraphicsScene：管理大量图形项的容器
 - QGraphicsView：显示场景的视图组件
 - QGraphicsItem：场景中的图形项基类
@@ -1857,6 +1593,7 @@ painter.drawText(rect, flags, "Aligned Text")
   - 旋转
 
 ### 9.9 动画与特效
+
 - 属性动画：QPropertyAnimation
 - 状态机动画
 - 图形特效：QGraphicsEffect
@@ -1864,7 +1601,6 @@ painter.drawText(rect, flags, "Aligned Text")
   - 阴影：QGraphicsDropShadowEffect
   - 颜色化：QGraphicsColorizeEffect
   - 不透明：QGraphicsOpacityEffect
-
 
 ## 10. 多线程
 
@@ -1956,7 +1692,7 @@ class Worker(QObject):
 
   ```python
   from PyQt5.QtCore import QWaitCondition, QMutex
-
+  
   condition = QWaitCondition()
   mutex = QMutex()
   mutex.lock()
@@ -2009,10 +1745,6 @@ class Worker(QObject):
 - **竞态条件处理**: 确保线程间的操作顺序，使用锁或条件变量。
 - **线程安全的数据共享**: 使用线程安全的数据结构，如`QMutex`保护的共享变量。
 - **线程生命周期管理**: 正确启动和终止线程，避免僵尸线程。使用`QThread`的`finished`信号来管理线程的结束。
-
-
-好的，以下是一个更详细的PyQt5数据库操作大纲，涵盖了你在使用PyQt5进行数据库操作时应该掌握的关键知识点：
-
 ## 11. 数据库操作
 
 ### 11.1 连接数据库
@@ -2023,6 +1755,21 @@ class Worker(QObject):
   - 连接的打开和关闭：`open()`、`close()`。
   - 错误处理：`lastError()`。
 
+#### 示例代码
+
+```python
+from PyQt5.QtSql import QSqlDatabase
+
+db = QSqlDatabase.addDatabase('QSQLITE')
+db.setDatabaseName('example.db')
+
+if not db.open():
+    print("无法连接到数据库")
+    print(db.lastError().text())
+else:
+    print("成功连接到数据库")
+```
+
 ### 11.2 执行 SQL 查询
 
 - **QSqlQuery类**: 学习如何使用`QSqlQuery`类来执行SQL语句。
@@ -2030,6 +1777,25 @@ class Worker(QObject):
   - 处理查询结果：`next()`、`value()`。
   - 事务管理：`transaction()`、`commit()`、`rollback()`。
   - 错误处理：`lastError()`。
+
+#### 示例代码
+
+```python
+from PyQt5.QtSql import QSqlQuery
+
+query = QSqlQuery()
+query.exec_("CREATE TABLE IF NOT EXISTS people (id INTEGER PRIMARY KEY, name TEXT)")
+
+query.prepare("INSERT INTO people (name) VALUES (?)")
+query.bindValue(0, "Alice")
+query.exec_()
+
+query.exec_("SELECT * FROM people")
+while query.next():
+    id = query.value(0)
+    name = query.value(1)
+    print(f"ID: {id}, Name: {name}")
+```
 
 ### 11.3 使用模型视图架构
 
@@ -2042,13 +1808,52 @@ class Worker(QObject):
   - 设置查询：`setQuery()`。
   - 处理结果：`record()`、`data()`。
 
+#### 示例代码
+
+```python
+from PyQt5.QtSql import QSqlTableModel
+
+model = QSqlTableModel()
+model.setTable('people')
+model.select()
+
+# 添加新行
+model.insertRow(model.rowCount())
+model.setData(model.index(model.rowCount() - 1, 1), "Bob")
+model.submitAll()
+
+# 过滤和排序
+model.setFilter("name LIKE 'A%'")
+model.setSort(1, Qt.AscendingOrder)
+model.select()
+```
+
 ### 11.4 数据库与UI的集成
 
 - **QTableView类**: 使用`QTableView`来显示数据库表数据。
   - 绑定模型：`setModel()`。
   - 自定义视图：列宽调整、选择模式、排序功能。
 
-- **信号与槽机制**: 处理用户交互事件，如按钮点击来执行数据库操作。
+#### 示例代码
+
+```python
+from PyQt5.QtWidgets import QApplication, QTableView
+from PyQt5.QtSql import QSqlTableModel
+
+app = QApplication([])
+
+view = QTableView()
+model = QSqlTableModel()
+model.setTable('people')
+model.select()
+
+view.setModel(model)
+view.setWindowTitle("数据库视图")
+view.resize(400, 300)
+view.show()
+
+app.exec_()
+```
 
 ### 11.5 高级主题
 
@@ -2061,35 +1866,306 @@ class Worker(QObject):
 - **项目实战**: 创建一个简单的CRUD应用程序，结合以上知识点。
 - **性能优化**: 学习如何优化数据库查询和数据加载。
 
-
+当然可以！以下是关于PyQt5国际化的详细笔记，涵盖如何使用`QTranslator`和创建翻译文件的步骤。
 
 ## 12. 国际化
 
+国际化（i18n）是指为应用程序提供多语言支持的过程。在PyQt5中，国际化通常通过`QTranslator`类和翻译文件实现。
+
 ### 12.1 使用 QTranslator
 
+`QTranslator`是PyQt5中用于加载和安装翻译文件的类。通过它可以将应用程序的文本翻译成不同的语言。
+
+#### 使用步骤：
+
+1. **创建QTranslator对象**：
+   ```python
+   translator = QTranslator()
+   ```
+
+2. **加载翻译文件**：
+   使用`load()`方法加载翻译文件（`.qm`文件）。
+   ```python
+   translator.load("translations_zh_CN.qm")
+   ```
+
+3. **安装翻译器**：
+   将翻译器安装到应用程序中。
+   ```python
+   app.installTranslator(translator)
+   ```
+
+4. **更新界面文本**：
+   使用`tr()`方法标记需要翻译的字符串。
+   ```python
+   self.label.setText(self.tr("Hello, World!"))
+   ```
+
 ### 12.2 创建翻译文件
+
+翻译文件是应用程序国际化的核心。以下是创建和使用翻译文件的步骤：
+
+#### 1. 提取可翻译字符串
+
+使用`pylupdate5`工具从Python源代码中提取可翻译的字符串，并生成一个`.ts`文件。
+
+```bash
+pylupdate5 your_script.py -ts translations.ts
+```
+
+#### 2. 翻译字符串
+
+使用`Qt Linguist`工具打开生成的`.ts`文件，并进行翻译。
+
+- 打开`Qt Linguist`。
+- 加载`translations.ts`文件。
+- 为每个字符串提供翻译。
+- 保存翻译。
+
+#### 3. 生成翻译文件
+
+使用`lrelease`工具将`.ts`文件编译成`.qm`文件。
+
+```bash
+lrelease translations.ts
+```
+
+#### 4. 使用翻译文件
+
+在应用程序中加载生成的`.qm`文件，并安装到应用程序中。
+
+```python
+if translator.load("translations_zh_CN.qm"):
+    app.installTranslator(translator)
+```
+
+### 12.3 实践建议
+
+- **动态语言切换**：实现一个按钮或菜单项，允许用户在运行时切换语言。
+- **多语言支持**：为应用程序添加更多语言支持，只需创建相应的翻译文件。
+- **测试翻译**：确保翻译文件正确加载，并在不同语言环境下测试应用程序。
 
 ## 13. 样式和主题
 
 ### 13.1 使用 QSS (Qt Style Sheets)
 
+- **概述**：QSS类似于CSS，用于定义Qt应用程序中控件的外观。
+- **优势**：
+  - 易于使用，语法类似于CSS。
+  - 可以快速应用于多个控件，适合统一风格的应用。
+  - 支持动态修改，方便调试和调整。
+  - 广泛支持大多数标准控件。
+- **劣势**：
+  - 灵活性有限，无法实现非常复杂或非标准的控件外观。
+  - 可能会影响性能，特别是在过多的样式表规则情况下。
+- **示例**：
+
+  ```python
+  button = QPushButton("Click Me")
+  button.setStyleSheet(
+      """
+      QPushButton {
+          background-color: #4CAF50;
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    QPushButton:hover {
+        background-color: #45a049;
+    }
+  """
+  )
+  ```
+
 ### 13.2 自定义控件外观
+
+- **概述**：通过子类化控件并重写其绘制方法，完全自定义控件的外观。
+- **优势**：
+  - 高度灵活，可以完全控制控件的外观。
+  - 精细控制每个像素的绘制，适合高精度UI设计。
+- **劣势**：
+  - 复杂性高，需要深入了解Qt的绘图系统。
+  - 开发时间长，维护困难。
+- **示例**：
+
+  ```python
+  class CustomButton(QPushButton):
+    def paintEvent(self, event):
+        painter = QPainter(self)
+        rect = QRect(0, 0, self.width(), self.height())
+
+        painter.setBrush(QColor(100, 150, 200))
+        painter.setPen(Qt.NoPen)
+        painter.drawRect(rect)
+
+        painter.setPen(QColor(255, 255, 255))
+        painter.setFont(QFont("Arial", 12))
+        painter.drawText(rect, Qt.AlignCenter, self.text())
+  ```
+
+### 选择建议
+
+- **使用QSS**：适合对标准控件进行样式调整，不需要复杂自定义的场景。
+- **使用自定义绘制**：适合实现独特控件外观或QSS无法满足的需求。
+
+在实际开发中，通常结合使用QSS和自定义绘制，以在保持开发效率的同时满足复杂的UI需求。
 
 ## 14. 打包和发布
 
+在这一章中，我们讨论了如何将 PyQt5 应用程序打包和发布给最终用户。主要涉及使用 PyInstaller 工具和创建安装程序的过程。
+
 ### 14.1 使用 PyInstaller 打包应用
+
+在这一节中，我们详细讨论了如何使用 PyInstaller 将 PyQt5 应用程序打包成独立的可执行文件，以便在没有 Python 环境的机器上运行。
+
+- **PyInstaller 简介**：
+  - PyInstaller 是一个强大的工具，可以将 Python 应用程序及其所有依赖项打包成一个或多个文件，适用于 Windows、macOS 和 Linux。
+  - 适合需要在没有 Python 环境的机器上运行的应用程序。
+
+- **安装 PyInstaller**：
+  - 可以通过以下命令安装 PyInstaller：
+    ```bash
+    pip install pyinstaller
+    ```
+
+- **打包命令**：
+  - 使用以下命令将应用程序打包成单个可执行文件：
+    ```bash
+    pyinstaller --onefile --windowed main.py
+    ```
+  - `--onefile` 选项将所有内容打包成一个文件，便于分发。
+  - `--windowed` 选项适用于 GUI 应用程序，避免在 Windows 上显示命令行窗口。
+
+- **资源文件打包**：
+  - 如果应用程序使用了外部资源文件（如图片、配置文件等），可以使用 `--add-data` 选项手动指定这些文件。
+  - 例如，假设有一个 `images` 目录需要打包：
+    ```bash
+    pyinstaller --onefile --windowed --add-data "images:images" main.py
+    ```
+  - 在代码中，使用 `sys._MEIPASS` 处理打包后的路径变化：
+    ```python
+    import sys
+    import os
+
+    if hasattr(sys, '_MEIPASS'):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.abspath(".")
+
+    image_path = os.path.join(base_path, "images", "your_image.png")
+    ```
+
+- **其他有用选项**：
+  - `--icon=<iconfile>`：指定应用程序的图标文件。
+  - `--name=<name>`：指定生成的可执行文件的名称。
+  - `--hidden-import=<module>`：手动指定需要打包的模块，适用于 PyInstaller 未自动检测到的模块。
+
+- **调试和优化**：
+  - 使用 `--log-level=DEBUG` 选项可以查看详细的打包过程日志，帮助调试。
+  - 通过 `--strip` 选项可以减小可执行文件的大小，但可能会影响调试信息。
 
 ### 14.2 创建安装程序
 
+在这一节中，我们详细讨论了如何创建一个安装程序，以便用户可以轻松安装和管理你的应用程序。
+
+- **安装程序的好处**：
+  - **简化用户体验**：通过安装向导，用户可以轻松地安装应用程序，而无需手动配置。
+  - **自动化配置**：安装程序可以自动设置环境变量、创建快捷方式、注册文件类型等。
+  - **依赖管理**：确保所有必要的依赖项都被正确安装。
+  - **卸载功能**：提供简单的卸载选项，允许用户轻松移除软件。
+  - **版本控制**：帮助用户管理软件的不同版本，确保使用最新版本。
+
+- **使用 Inno Setup 创建安装程序**：
+  - **下载并安装 Inno Setup**：从 [Inno Setup 官方网站](http://www.jrsoftware.org/isinfo.php) 下载并安装。
+  - **编写脚本文件**：创建一个 `.iss` 脚本文件，指定可执行文件和其他资源。
+  - **编译脚本**：使用 Inno Setup 编译器生成安装程序。
+
+- **Inno Setup 脚本示例**：
+  下面是一个简单的 Inno Setup 脚本示例，展示如何配置安装程序：
+
+  ```ini
+  [Setup]
+  AppName=MyApp
+  AppVersion=1.0
+  DefaultDirName={pf}\MyApp
+  DefaultGroupName=MyApp
+  OutputDir=.
+  OutputBaseFilename=MyAppSetup
+  Compression=lzma
+  SolidCompression=yes
+
+  [Files]
+  Source: "dist\main.exe"; DestDir: "{app}"; Flags: ignoreversion
+  Source: "dist\resources\*"; DestDir: "{app}\resources"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+  [Icons]
+  Name: "{group}\MyApp"; Filename: "{app}\main.exe"
+  Name: "{group}\Uninstall MyApp"; Filename: "{uninstallexe}"
+
+  [Run]
+  Filename: "{app}\main.exe"; Description: "{cm:LaunchProgram,MyApp}"; Flags: nowait postinstall skipifsilent
+  ```
+
+  - **[Setup]**：定义安装程序的基本信息。
+    - `AppName`：应用程序的名称。
+    - `AppVersion`：应用程序的版本。
+    - `DefaultDirName`：默认的安装目录。
+    - `DefaultGroupName`：开始菜单中的程序组名称。
+    - `OutputDir`：输出目录，生成的安装程序文件将放在这里。
+    - `OutputBaseFilename`：输出文件的基本名称。
+    - `Compression`：压缩算法，`lzma` 提供更好的压缩率。
+    - `SolidCompression`：启用固实压缩，提高压缩效率。
+
+  - **[Files]**：指定要包含在安装程序中的文件。
+    - `Source`：源文件路径。
+    - `DestDir`：目标目录，`{app}` 表示安装目录。
+    - `Flags`：文件标志，`ignoreversion` 表示忽略版本检查，`recursesubdirs` 和 `createallsubdirs` 用于递归复制目录。
+
+  - **[Icons]**：定义快捷方式。
+    - `Name`：快捷方式的名称。
+    - `Filename`：快捷方式指向的文件。
+
+  - **[Run]**：定义安装完成后运行的程序。
+    - `Filename`：要运行的程序。
+    - `Description`：描述信息。
+    - `Flags`：`nowait` 表示不等待程序结束，`postinstall` 表示安装后运行，`skipifsilent` 表示静默安装时不运行。
+
+通过这个脚本，你可以创建一个专业的安装程序，方便用户安装和管理你的应用程序。如果有任何问题或需要进一步的帮助，请随时告诉我！
+
+### 总结
+
+- 使用 PyInstaller 可以轻松打包 PyQt5 应用程序。
+- 创建安装程序可以提升软件的专业性和用户体验。
+- 选择合适的打包和发布方式取决于应用的复杂性和用户需求。
+
 ## 15. 高级主题
 
-### 15.1 自定义控件
+### 15.1 Model/View 编程
+- **核心概念**：Model/View编程模式用于分离数据的存储和显示，提供了更灵活的数据管理方式。
+- **示例**：我们使用`QTableView`和`QStandardItemModel`展示了如何显示和管理表格数据。
+- **关键点**：
+  - **模型（Model）**：负责数据的存储和管理。
+  - **视图（View）**：负责数据的显示。
+  - **分离数据和显示**：通过模型和视图的分离，简化了复杂数据的处理。
+- **实践建议**：尝试创建自定义模型，处理更复杂的数据结构。
 
-### 15.2 Model/View 编程
+### 15.2 图形视图框架
+- **核心概念**：图形视图框架用于处理和显示二维图形，适合于需要管理复杂场景的应用程序。
+- **示例**：我们展示了如何使用`QGraphicsView`和`QGraphicsScene`来管理和显示图形项，如椭圆和矩形。
+- **关键点**：
+  - **场景（Scene）**：管理和存储所有图形项。
+  - **视图（View）**：显示场景中的内容。
+  - **交互性**：支持拖动、缩放等交互操作。
+- **实践建议**：尝试添加更多的图形项和交互功能，探索图形视图框架的更多特性。
 
-### 15.3 图形视图框架
-
-### 15.4 动画框架
+### 15.3 动画框架
+- **核心概念**：动画框架允许为用户界面元素添加动画效果，提高应用程序的交互性和视觉吸引力。
+- **示例**：我们展示了如何使用`QPropertyAnimation`为按钮添加移动动画，并实现了一个反弹球的复杂动画。
+- **关键点**：
+  - **QPropertyAnimation**：用于为对象的属性创建动画。
+  - **动画组合**：使用`QSequentialAnimationGroup`和`QParallelAnimationGroup`组合多个动画。
+  - **无限循环**：通过设置动画的循环次数，实现持续的动画效果。
+- **实践建议**：尝试组合多个动画，创建更复杂的动画效果。
 
 ## 16. 实战项目
 
@@ -2100,4 +2176,3 @@ class Worker(QObject):
 ### 16.3 图片浏览器
 
 ### 16.4 待办事项应用
-

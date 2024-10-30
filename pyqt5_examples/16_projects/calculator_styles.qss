@@ -1,0 +1,54 @@
+/* 样式表：styles.qss */
+
+/* 窗口背景 */
+QWidget {
+    background-color: #E0E0E0;
+}
+
+/* 显示区域样式 */
+QLineEdit {
+    background-color: #FFFFFF;
+    border: none;
+    padding: 15px;
+    margin: 1px;
+    border-radius: 0px;
+    font-size: 24px;
+    color: #333333;
+}
+
+/* 所有按钮的基础样式 */
+QPushButton {
+    background-color: #F5F5F5;
+    color: #333333;
+    border: none;
+    border-radius: 0px;
+    min-height: 60px;
+    font-size: 20px;
+    margin: 1px;
+}
+
+/* 按钮悬停效果 */
+QPushButton:hover {
+    background-color: #E8E8E8;
+}
+
+/* 按钮按下效果 */
+QPushButton:pressed {
+    background-color: #D5D5D5;
+}
+
+/* 清除按钮样式 */
+QPushButton#C {
+    background-color: #FFE0E0;
+    color: #FF4444;
+}
+
+/* 清除按钮悬停效果 */
+QPushButton#C:hover {
+    background-color: #FFD0D0;
+}
+
+/* 清除按钮按下效果 */
+QPushButton#C:pressed {
+    background-color: #FFC0C0;
+}
